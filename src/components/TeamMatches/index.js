@@ -15,7 +15,7 @@ class TeamMatches extends Component {
   }
 
   componentDidMount() {
-    this.getTeamMatches
+    this.getTeamMatches()
   }
 
   getFormattedData = data => ({
@@ -39,6 +39,7 @@ class TeamMatches extends Component {
 
     const response = await fetch(`${teamMatchesApiUrl}${id}`)
     const fetchedData = await response.json()
+
     const formattedData = {
       teamBannerURL: fetchedData.team_banner_url,
       latestMatch: this.getFormattedData(fetchedData.latest_match_details),
@@ -46,8 +47,9 @@ class TeamMatches extends Component {
         this.getFormattedData(eachMatch),
       ),
     }
+    console.log(formattedData)
 
-    this.setState({teamMatchesData: formattedData, isLoading: true})
+    this.setState({teamMatchesData: formattedData, isLoading: false})
   }
 
   renderRecentMatchesList = () => {
@@ -114,7 +116,7 @@ class TeamMatches extends Component {
     const className = `team-matches-container ${this.getRouteClassName()}`
 
     return (
-      <div className={className}>
+      <div data-testid="loader" className={className}>
         {isLoading ? this.renderLoader() : this.renderTeamMatches()}
       </div>
     )

@@ -1,4 +1,5 @@
 import {Component} from 'react'
+// import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 
 import TeamCard from '../TeamCard'
@@ -25,6 +26,7 @@ class Home extends Component {
       id: team.id,
       teamImageURL: team.team_image_url,
     }))
+    console.log(formattedData)
 
     this.setState({
       teamsData: formattedData,
@@ -34,12 +36,18 @@ class Home extends Component {
 
   renderTeamsList = () => {
     const {teamsData} = this.state
-
-    return <ul className="teams-list"></ul>
+    console.log(teamsData)
+    return (
+      <ul className="teams-list">
+        {teamsData.map(each => (
+          <TeamCard teamDetails={each} key={each.id} />
+        ))}
+      </ul>
+    )
   }
 
   renderLoader = () => (
-    <div className="loader-container">
+    <div data-testid="loader" className="loader-container">
       <Loader type="Oval" color="#ffffff" height={50} />
     </div>
   )
@@ -58,7 +66,7 @@ class Home extends Component {
             />
             <h1 className="ipl-dashboard-heading">IPL Dashboard</h1>
           </div>
-          {isLoading ? this.renderLoader() : this.renderTeamsList()}
+          <div>{isLoading ? this.renderLoader() : this.renderTeamsList()}</div>
         </div>
       </div>
     )
