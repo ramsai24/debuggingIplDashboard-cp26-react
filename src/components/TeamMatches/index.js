@@ -116,7 +116,7 @@ class TeamMatches extends Component {
     const className = `team-matches-container ${this.getRouteClassName()}`
 
     return (
-      <div data-testid="loader" className={className}>
+      <div className={className}>
         {isLoading ? this.renderLoader() : this.renderTeamMatches()}
       </div>
     )
